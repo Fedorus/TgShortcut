@@ -1,0 +1,40 @@
+@model ShortcutViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>title</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Key
+        </th>
+        <th>
+            Value
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Shortcuts)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Header)</td>
+            <td>@Html.DisplayFor(modelItem => item.Content)</td>
+            <td>
+                <a asp-action="Edit" asp-route-token="@Model.Token" asp-route-item="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-token="@Model.Token" asp-route-item="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<div class="text-center">
+    <a class="btn btn-primary" asp-action="Create" asp-route-token="@Model.Token">
+        Add new
+    </a>
+</div>

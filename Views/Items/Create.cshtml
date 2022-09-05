@@ -1,0 +1,41 @@
+@model SubmitNewShortcutViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2 class="text-center">Create shortcut</h2>
+
+<table>
+    <form asp-action="Submit" method="post">
+        <div class="form-group">
+            <input asp-for="@Model.Token" type="hidden" />
+        </div>
+        <div class="form-group">
+            <input asp-for="@Model.Shortcut.Id" type="hidden"></input>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Shortcut.Header">Header (less than 40 chars):</label>
+            <input asp-for="@Model.Shortcut.Header" class="form-control"/>
+        </div>
+        @Html.Raw(Html.Encode(@"<b>bold</b>, <strong>bold</strong>"))<br>
+        @Html.Raw(Html.Encode(@"<i>italic</i>, <em>italic</em>"))<br>
+        @Html.Raw(Html.Encode(@"<u>underline</u>, <ins>underline</ins>"))<br>
+        @Html.Raw(Html.Encode(@"<s>strikethrough</s>, <strike>strikethrough</strike>, <del>strikethrough</del>"))<br>
+        @Html.Raw(Html.Encode(@"<b>bold <i>italic bold <s>italic bold strikethrough</s> <u>underline italic bold</u></i> bold</b>"))<br>
+        @Html.Raw(Html.Encode(@"<a href=""http://www.example.com/"">inline URL</a>"))<br>
+        @Html.Raw(Html.Encode(@"<a href=""tg://user?id=123456789"">inline mention of a user</a>"))<br>
+        @Html.Raw(Html.Encode(@"<code>inline fixed-width code</code>"))<br>
+        <br>
+        Note that you can use HTML stype to format your mesage. Read more: <a href="https://core.telegram.org/bots/api#formatting-options" >link</a>
+        <div class="form-group">
+            <label asp-for="@Model.Shortcut.Content">Content:</label>
+            <textarea asp-for="@Model.Shortcut.Content" class="form-control" ></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Add/Edit</button>
+            <a href="/Items/@Model.Token/" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</table>
