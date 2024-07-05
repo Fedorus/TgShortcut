@@ -28,7 +28,7 @@ public class EditShortcutsCommand : CommandBase<ShortcutBotContext>
             byte[] _time     = BitConverter.GetBytes(DateTime.UtcNow.ToBinary());
             byte[] _key      = BitConverter.GetBytes(user.UserId);
             byte[] _Id       = UTF8Encoding.UTF8.GetBytes(user.Id);
-            byte[] data       = new byte[_time.Length + _key.Length + _Id.Length];
+            byte[] data      = new byte[_time.Length + _key.Length + _Id.Length];
 
             Buffer.BlockCopy(_time, 0, data, 0, _time.Length);
             Buffer.BlockCopy(_key , 0, data, _time.Length, _key.Length);
@@ -40,9 +40,9 @@ public class EditShortcutsCommand : CommandBase<ShortcutBotContext>
         user.Token = GenerateToken(user).Replace("=", "");
         if (_settings.Value.WebhookDomain.Contains("localhost"))
         {    
-            await context.Bot.Client.SendTextMessageAsync(user.UserId, $"Link to your page: {_settings.Value.WebhookDomain}/Items/{user.Token}/\nDon't share your link with others\\. Link changes each time bot sends it\\.", ParseMode.MarkdownV2);
+            await context.Bot.Client.SendTextMessageAsync(user.UserId, $"Link to your page: {_settings.Value.WebhookDomain}/Items/{user.Token}/\nDon't share your link with others\\. Link changes each time bot sends it\\.", parseMode: ParseMode.MarkdownV2, cancellationToken: cancellationToken);
         }
         else
-            await context.Bot.Client.SendTextMessageAsync(user.UserId, $"[Link to your page]({_settings.Value.WebhookDomain}/Items/{user.Token}/)\nDon't share your link with others\\. Link changes each time bot sends it\\.", ParseMode.MarkdownV2);
+            await context.Bot.Client.SendTextMessageAsync(user.UserId, $"[Link to your page]({_settings.Value.WebhookDomain}/Items/{user.Token}/)\nDon't share your link with others\\. Link changes each time bot sends it\\.",  parseMode: ParseMode.MarkdownV2, cancellationToken: cancellationToken);
     }
 }
